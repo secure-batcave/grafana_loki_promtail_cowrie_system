@@ -2,6 +2,8 @@
 
 ## 1. Create AWS Accounts
 
+As always with AWS, things can quickly be updated, so this guide may be outdated. This guide works as of January 2025.
+
 Amazon offers a free tier for new accounts, which includes Amazon Lightsail. Lightsail allows you to run a free virtual machine (VM) for 3 months, this VM is a little more powerful than the default EC2 free tier. You are going to create at least 2 AWS accounts, one for Grafana and Loki, and 1+ honeypot accounts. The idea is to set up the AWS accounts once such that the next time you login to the AWS console is to delete the account, since you can just SSH into the VM.
 
 ### Requirements
@@ -14,7 +16,7 @@ Amazon offers a free tier for new accounts, which includes Amazon Lightsail. Lig
 2. Enter your email, choose a password, and input other required details.
 3. Verify your email and phone number.
 4. Add your payment method.
-5. Complete the sign-up process by choosing the **Basic Plan** (free).
+5. Complete the sign-up process by choosing the **Basic support Plan** (free).
 6. Repeat steps 1-5 for each additional account, changing the email while all else can remain the same.
 
 ---
@@ -22,15 +24,16 @@ Amazon offers a free tier for new accounts, which includes Amazon Lightsail. Lig
 ## 2. Basic AWS Account Configuration
 
 ### Secure Your Account with MFA
-1. Navigate to **My Security Credentials** in the AWS Management Console.
+1. Navigate to **Security Credentials** in the AWS Management Console (top right drop down menu).
 2. Enable **Multi-Factor Authentication (MFA)**.
    - Use Google Authenticator or a similar OTP (One-Time Password) app.
 
 ### Set Up Billing Alerts and Budgets
-1. Go to the **Billing Dashboard**.
-2. Set up a **Monthly Budget** to monitor free tier usage.
-   - Create an alarm to notify you if costs exceed $0.
-3. Enable **Invoice Email Notifications** to receive PDFs of monthly invoices.
+1. Navigate to **Billing and Cost Management** in the AWS Management Console (top right drop down menu).
+2. Create a **Budget** to monitor free tier usage (eg. Zero spend budget).
+   - Specify the email address to send cost threshold notifications to.
+3. Navigate to **Billing Preferences**, enable PDF invoices and enable AWS Free Tier alerts.
+   - Specify the email address to send Free Tier usage alerts to.
 
 ### Reminder for Temporary Accounts
 - If you’re using the account temporarily for the free tier:
@@ -42,17 +45,18 @@ Amazon offers a free tier for new accounts, which includes Amazon Lightsail. Lig
 
 ### Steps
 1. **Create a Lightsail VM**
-   - Login to your AWS account and go to the Lightsail console.
+   - Login to your AWS account and navigate to the Lightsail console.
    - Click **Create Instance**.
-   - Select **Ubuntu** as the operating system.
-   - Keep default settings and click **Create Instance**.
+   - Select Region and OS (eg. Ubuntu 24.04 LTS).
 
 2. **Set Up SSH Access**
-   - Download the **default SSH key** from the Lightsail console.
+   - Click Create custom key, download the key and save it to your local machine.
    - Secure the key with proper permissions:
      ```bash
      chmod 400 path/to/private-key.pem
      ```
+   - Select the most expensive free tier instance size.
+   - Click Create instance. Wait for the instance to be ready.
    - Use the following command to connect to the VM:
      ```bash
      ssh -i path/to/private-key.pem ubuntu@<instance-ip>
@@ -87,7 +91,7 @@ Amazon offers a free tier for new accounts, which includes Amazon Lightsail. Lig
      - **Application**: Custom
      - **Protocol**: TCP
      - **Port**: 3100
-     - **Only Allow Whitelisted IPs**: <Cowrie Honeypot IP(s)>
+     - **Restrict to IP address**: <Cowrie Honeypot IP(s)>
    - This allows ONLY the Cowrie honeypot servers to send logs to the Loki server.
 
 5. **Reconnect Using the New Port (Cowrie honeypot servers only)**

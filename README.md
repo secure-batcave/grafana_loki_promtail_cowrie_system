@@ -24,7 +24,7 @@ This guide utilizes AWS free tier resources, making the setup completely free. A
 /honeypot-monitoring-system
 ├── /honeypot
 │   ├── cowrie_promtail_setup.md    # Detailed honeypot setup guide
-│   ├── cowrie_configs/             # Example configuration files
+│   ├── cowrie_configs.md           # Example configuration files
 ├── /logging_visualization
 │   ├── grafana_loki_setup.md       # Grafana and Loki setup guide
 ├── /server
@@ -41,12 +41,10 @@ Follow the steps below to set up the honeypot monitoring system:
 
 2. **Honeypot Setup**
    - Deploy and configure the Cowrie honeypot to simulate a vulnerable environment. Promtail ships logs to Loki. ([Guide](./honeypot/cowrie_promtail_setup.md))
+   - Further configure the Cowrie honeypot. ([Guide](./honeypot/cowrie_configs.md))
 
 3. **Logging and Visualization**
    - Install and configure Grafana and Loki for log aggregation and visualization. ([Guide](./logging_visualization/grafana_loki_setup.md))
-
-5. **Dashboard Configuration**
-   - Import the provided Grafana dashboards to visualize attack data. ([Example Dashboards](./logging_visualization/example_dashboards.json))
 
 ## Goals and Applications
 

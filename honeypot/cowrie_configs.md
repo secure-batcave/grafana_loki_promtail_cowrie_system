@@ -47,7 +47,7 @@ bin/cowrie restart
 
 ## 2. Customize `cowrie.cfg`
 
-The `cowrie.cfg` file allows you to manipulate various aspects of the honeypot’s behavior to make it appear more realistic.
+The `cowrie.cfg` file allows you to manipulate various aspects of the honeypot’s behavior.
 
 ### Edit the Configuration File
 Navigate to the configuration directory and open the file:
@@ -84,19 +84,19 @@ Examples:
 - **AWS Lightsail Ubuntu 22**: `#34-Ubuntu SMP Mon Jan 23 20:13:32 UTC 2023`
 - **AWS Lightsail Debian 11**: `#1 SMP Debian 5.10.136-1 (2022-08-13)`
 
-#### 6. **Hardware Platform (output of `uname -m`)** *(Optional)*
+#### 4. **Hardware Platform (output of `uname -m`)** *(Optional)*
 Update the hardware platform to ensure consistency with other configurations:
 ```ini
 hardware_platform = x86_64
 ```
 
-#### 2. **Sensor Name** *(Optional)*
+#### 5. **Sensor Name** *(Optional)*
 Set a sensor name for internal identification:
 ```ini
 sensor_name = puddingCup
 ```
 
-#### 3. **Fake IP Address** *(Optional)*
+#### 6. **Fake IP Address** *(Optional)*
 Configure a fake IP address for incoming connections:
 ```ini
 fake_addr = 172.31.25.140
